@@ -6,12 +6,18 @@
 package View;
 
 import Controller.Controller;
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.text.Document;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
 
@@ -29,6 +35,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         initComponents();
         
         controller = new Controller();
+        table.setEnabled(false);
         
         try
         {
@@ -103,8 +110,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        Tab1 = new javax.swing.JTabbedPane();
         jScrollPane5 = new javax.swing.JScrollPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
         jScrollPane7 = new javax.swing.JScrollPane();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTextField3 = new javax.swing.JTextField();
@@ -305,9 +316,43 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Configuracion", jPanel1);
 
-        jTabbedPane2.addTab("tab4", jScrollPane5);
-        jTabbedPane2.addTab("tab2", jScrollPane7);
-        jTabbedPane2.addTab("tab3", jScrollPane8);
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane9.setViewportView(table);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
+
+        jScrollPane6.setViewportView(jPanel3);
+
+        jScrollPane5.setViewportView(jScrollPane6);
+
+        Tab1.addTab("Tab 1", jScrollPane5);
+        Tab1.addTab("tab2", jScrollPane7);
+        Tab1.addTab("tab3", jScrollPane8);
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,7 +396,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTabbedPane2)
+                        .addComponent(Tab1)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jRadioButton1)
@@ -395,7 +440,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                             .addComponent(jRadioButton2)
                             .addComponent(jButton5))
                         .addGap(18, 18, 18)
-                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Tab1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jButton6)))
@@ -453,14 +498,22 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         
-        try 
-        {
-			controller.testApi("https://api.bitfinex.com/v1/book/BTCUSD", "GET");
-		}
-        catch (InterruptedException e) 
-        {		
-			e.printStackTrace();
-		}
+        try {
+            //Object[] data = {"LALALA"};
+            //table.setModel(new DefaultTableModel(data, 1));
+            
+            
+            //TableModel tm = table.getModel(); //.getRowCount();
+            //tm.setValueAt("LALALA", 1, 1);
+            //table.setModel(tm);
+            table.setModel(controller.testApi("https://api.bitfinex.com/v1/book/BTCUSD", "GET"));
+            
+            
+            
+            //table
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
@@ -499,6 +552,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane Tab1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -527,6 +581,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JList<String> jList4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -534,10 +589,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -546,5 +602,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblFees;
     private javax.swing.JLabel lblPairs;
     private javax.swing.JLabel lbllExchanges;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

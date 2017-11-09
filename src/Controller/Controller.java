@@ -8,6 +8,9 @@ package Controller;
 import org.json.JSONObject;
 
 import Model.ApiCaller;
+import Model.TableData;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -16,16 +19,29 @@ import Model.ApiCaller;
 public class Controller 
 {
 	private JSONObject jObject;
+        private TableData tableData;
+        private javax.swing.JTable table;
 
-    public JSONObject testApi(String url, String method) throws InterruptedException     
+    public TableModel testApi(String url, String method) throws InterruptedException     
     {
         ApiCaller apiCaller = new ApiCaller(url, method);
         apiCaller.run();
         apiCaller.wait();
+     
+        jObject = apiCaller.getData();     
         
-        jObject = apiCaller.getData();
+        System.out.println(jObject.getString(url));
         
-        return jObject;
+        table = new javax.swing.JTable();
+        TableModel tm = table.getModel();
+
+
+        
+        //tableData.setValueAt("HOLA", 1, 1);
+        
+
+        
+        return table.getModel();
         
     }
     
