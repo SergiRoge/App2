@@ -25,11 +25,16 @@ public class Controller
 
     public TableModel getOrderBook(String url, String method) throws InterruptedException, JSONException     
     {
-        synchronized( this )
-        {
-            ApiCaller apiCaller = new ApiCaller(url, method);
-            apiCaller.run();
+        ApiCaller apiCaller = new ApiCaller(url, method);
+        synchronized( apiCaller )
+        {            
+            apiCaller.run();  
+            
         }
+        System.out.println(apiCaller.getData());
+        
+        
+        
         return null;
         //apiCaller.wait();
         /*

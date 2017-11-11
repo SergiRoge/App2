@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Model.Converters;
 
 import javax.swing.table.TableModel;
 import org.json.JSONObject;
@@ -20,7 +20,7 @@ public final class JSON2TableModel
         
     }
     
-    public static TableModel get(JSONObject json)
+    public static TableModel convert(JSONObject json)
     {
         TableModel TableModel = null;
         

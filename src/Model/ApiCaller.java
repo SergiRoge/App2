@@ -37,13 +37,14 @@ public class ApiCaller implements Runnable
 
 
 	private JSONObject jObject;
-	private JSONObject data;
+	private String data;
         private JSONArray jArray;
            
     public ApiCaller(String strUrl, String strMethod) 
     {
             this.strUrl = strUrl;
             this.strMethod = strMethod;
+            data = "";
             
         //httpclient = HttpClient.createDefault();      
             
@@ -78,15 +79,17 @@ public class ApiCaller implements Runnable
 			(conn.getInputStream())));
 
 		String output;
-		String strResponse = "";
+		
                 
                 
                 
 		while ((output = br.readLine()) != null) 
                 {
-			strResponse += output;
+			data += output;
 		}
-		jObject  = new JSONObject(strResponse);
+		
+                /*
+                jObject  = new JSONObject(data);
                 
                 String asks = jObject.names().getString(0);
                 String bids = jObject.names().getString(1);
@@ -101,31 +104,9 @@ public class ApiCaller implements Runnable
                 }
                 JSONObject sortedJSONAsks = new JSONObject();
                 sortedJSONAsks = JSONSorter.sort(JSONAsks, "price", false);
-                //jObject.getJSONArray(asks).get(i)
-                //JSONObject JSONAsks  = new JSONObject(jObject.get(asks).toString());
                 
-                //System.out.println(jObject.getJSONObject(asks).toString());
-                //System.out.println(JSONAsks.names().getString(0));
-                
-                /*for(int i = 0; i < JSONAsks.length(); i++)
-                {
-                    
-                }
                 */
-                //System.out.println(jArray.length());
-                        //= jObject.getJSONArray(strResponse);                        
-			//data = jObject.getJSONObject(strResponse);
-
-                     //System.out.println(jArray.get(0));   
-               //for (int i = 0; i < jArray.length(); i++) {
-
-                        //JSONObject jObj = jArray.getJSONObject(i);
-
-                        //System.out.println(i + " id : " + jObj.toString());
-
-
-
-                //}                        
+                   
 
 		conn.disconnect();
 
@@ -137,28 +118,17 @@ public class ApiCaller implements Runnable
 
 		e.printStackTrace();
 
-	  } catch (JSONException ex) {
-            Logger.getLogger(ApiCaller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        // TODO Auto-generated catch block
-        //e.printStackTrace();
-        // TODO Auto-generated catch block
-        //e.printStackTrace();
-        
-        // TODO Auto-generated catch block
-        //e.printStackTrace();
-        
-        // TODO Auto-generated catch block
-        //e.printStackTrace();
+	  }
+
             
     }
     
     
-    public JSONObject getData() {
+    public String getData() {
 		return data;
 	}
 
-	public void setData(JSONObject data) {
+	public void setData(String data) {
 		this.data = data;
 	}  
 }
