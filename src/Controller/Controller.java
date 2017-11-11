@@ -11,6 +11,7 @@ import Model.ApiCaller;
 import Model.TableData;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.json.JSONException;
 
 /**
  *
@@ -22,12 +23,16 @@ public class Controller
         private TableData tableData;
         private javax.swing.JTable table;
 
-    public TableModel testApi(String url, String method) throws InterruptedException     
+    public TableModel getOrderBook(String url, String method) throws InterruptedException, JSONException     
     {
-        ApiCaller apiCaller = new ApiCaller(url, method);
-        apiCaller.run();
-        apiCaller.wait();
-     
+        synchronized( this )
+        {
+            ApiCaller apiCaller = new ApiCaller(url, method);
+            apiCaller.run();
+        }
+        return null;
+        //apiCaller.wait();
+        /*
         jObject = apiCaller.getData();     
         
         System.out.println(jObject.getString(url));
@@ -41,8 +46,8 @@ public class Controller
         
 
         
-        return table.getModel();
+        return table.getModel();*/
         
+    //}
     }
-    
 }

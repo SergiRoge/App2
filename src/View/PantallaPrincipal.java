@@ -17,6 +17,7 @@ import javax.swing.text.Document;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
@@ -506,12 +507,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             //TableModel tm = table.getModel(); //.getRowCount();
             //tm.setValueAt("LALALA", 1, 1);
             //table.setModel(tm);
-            table.setModel(controller.testApi("https://api.bitfinex.com/v1/book/BTCUSD", "GET"));
+            controller.getOrderBook("https://api.bitfinex.com/v1/book/BTCUSD", "GET");
             
             
             
             //table
         } catch (InterruptedException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
