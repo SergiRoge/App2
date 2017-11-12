@@ -5,6 +5,7 @@
  */
 package Model.Converters;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -18,26 +19,10 @@ public final class String2JSON
     }
     
     
-    public static JSONObject convert(String strJSON)
+    public static JSONObject convert(String strJSON) throws JSONException
     {
-                        jObject  = new JSONObject(data);
-                
-                String asks = jObject.names().getString(0);
-                String bids = jObject.names().getString(1);
-                
-               
-                
-                JSONObject JSONAsks = new JSONObject();
-                for(int i = 0; i < jObject.getJSONArray(asks).length(); i++)
-                {
-                    System.out.println(jObject.getJSONArray(asks).get(i).toString());
-                    JSONAsks = new JSONObject(jObject.getJSONArray(asks).get(i).toString());                
-                }
-                JSONObject sortedJSONAsks = new JSONObject();
-                sortedJSONAsks = JSONSorter.sort(JSONAsks, "price", false);
-                
-                
-                
+        JSONObject jObject  = new JSONObject(strJSON);                
+        return jObject;        
         
     }
     

@@ -8,9 +8,13 @@ package Controller;
 import org.json.JSONObject;
 
 import Model.ApiCaller;
+import Model.Converters.JsonArray2TableModel;
+import Model.Converters.String2JSON;
+import Model.Converters.String2JSONArray;
 import Model.TableData;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
@@ -20,39 +24,24 @@ import org.json.JSONException;
 public class Controller 
 {
 	private JSONObject jObject;
-        private TableData tableData;
+        private JSONArray jsonArray;
+        private TableModel tableModel;
         private javax.swing.JTable table;
 
-    public TableModel getOrderBook(String url, String method) throws InterruptedException, JSONException     
+    public TableModel getTableModel(String url, String method, TableModel tableModel) throws InterruptedException, JSONException     
     {
         ApiCaller apiCaller = new ApiCaller(url, method);
         synchronized( apiCaller )
         {            
-            apiCaller.run();  
-            
+            apiCaller.run();              
         }
-        System.out.println(apiCaller.getData());
         
+        String jsonData = apiCaller.getData();
         
+        jsonArray = String2JSONArray.convert(jsonData);
+        tableModel = JsonArray2TableModel.convert(jsonArray, tableModel);
         
-        return null;
-        //apiCaller.wait();
-        /*
-        jObject = apiCaller.getData();     
-        
-        System.out.println(jObject.getString(url));
-        
-        table = new javax.swing.JTable();
-        TableModel tm = table.getModel();
+        return tableModel;
 
-
-        
-        //tableData.setValueAt("HOLA", 1, 1);
-        
-
-        
-        return table.getModel();*/
-        
-    //}
     }
 }
