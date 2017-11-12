@@ -30,14 +30,14 @@ public final class JsonArray2TableModel
         
         
         
-        System.out.println("Cols :" + tableModel.getColumnCount());
+        //System.out.println("Cols :" + tableModel.getColumnCount());
         
         for(int i = 0; i < jsonArray.length(); i++)
         {
             jsonObject = jsonArray.getJSONObject(i);
             
             
-            System.out.println("i : " + i + " -> " + jsonObject.get("amount"));
+            //System.out.println("i : " + i + " -> " + jsonObject.get("amount"));
             //first amount
             tableModel.setValueAt(jsonObject.get("amount"), i, 0);
             
@@ -48,7 +48,7 @@ public final class JsonArray2TableModel
             tableModel.setValueAt(jsonObject.get("timestamp"), i, 2);
             
             //then object
-            tableModel.setValueAt(jsonObject, i, 3);
+           // tableModel.setValueAt(jsonObject, i, 3);
             
         }
         

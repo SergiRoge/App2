@@ -21,6 +21,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -30,6 +32,7 @@ import org.xml.sax.SAXException;
 public class PantallaPrincipal extends javax.swing.JFrame {
 
     Controller controller;
+    Timer timer;
     /**
      * Creates new form PantallaPrincipal
      */
@@ -38,6 +41,23 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         
         controller = new Controller();
         table.setEnabled(false);
+        
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    controller.getTableModel("https://api.bitfinex.com/v1/book/BTCUSD", "GET", table.getModel());
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (JSONException ex) {
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+           }, 1500, 1500);
+
+        
+        
         
         try
         {
